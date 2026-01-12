@@ -9,6 +9,9 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@sgratzl/chartjs-chart-boxplot": "^4.4.2",
+    "chart.js": "^4.4.1",
+    "react-chartjs-2": "^5.2.0",
     "@react-router/node": "7.12.0",
     "@react-router/serve": "7.12.0",
     "isbot": "^5.1.31",
