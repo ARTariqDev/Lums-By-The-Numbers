@@ -62,6 +62,7 @@ export default function Navbar() {
     { name: 'About', path: '#about' },
     { name: 'Statistics', path: '#statistics' },
     { name: 'Visualizations', path: '#visualizations' },
+    { name: 'Submit Data', path: '/submit' },
   ];
 
   const isActive = (path) => {
