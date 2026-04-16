@@ -2,7 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
+  const [sampleSize, setSampleSize] = useState('...');
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/data.json')
+      .then(res => res.json())
+      .then(data => {
+        const count = data.filter(d => d.SAT != null).length;
+        setSampleSize(count);
+      })
+      .catch(err => console.error('Error fetching data:', err));
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,7 +77,7 @@ export default function About() {
               <div>
                 <h3 className="text-white text-xl font-light mb-3 tracking-wide">Important Note</h3>
                 <p className="text-white text-base md:text-lg leading-relaxed font-light opacity-70">
-                  Data is calculated using O levels "points" to enable better visualisation. O level "points" are calculated based on A's and A*'s. A grades = 7 points, A* = 10 points. The total sample size for this data set is 53 and is based on last years admissions cycle, the personal statement, level and quality of extracurriculars, awards and honours wasn't accounted for either. As a result, please take this data with a grain of salt (especially since it doesn't paint a full picture of each applicant's profiles).
+                  Data is calculated using O levels "points" to enable better visualisation. O level "points" are calculated based on A's and A*'s. A grades = 7 points, A* = 10 points. For AS Grades, a = 10 points, b = 5 points. The total sample size for this data set is {sampleSize} and is based on last years admissions cycle, the personal statement, level and quality of extracurriculars, awards and honours wasn't accounted for either. As a result, please take this data with a grain of salt (especially since it doesn't paint a full picture of each applicant's profiles).
                 </p>
               </div>
             </div>

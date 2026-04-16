@@ -1,28 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-const statsData = {
-  SAT: {
-    count: 53,
-    mean: 1405.47,
-    std: 83.33,
-    min: 1200,
-    '25%': 1350,
-    '50%': 1410,
-    '75%': 1470,
-    max: 1580,
-  },
-  'O Levels': {
-    count: 53,
-    mean: 74.53,
-    std: 18.52,
-    min: 41,
-    '25%': 62,
-    '50%': 71,
-    '75%': 84,
-    max: 134,
-  },
-};
-
 const statLabels = {
   count: 'Sample Size',
   mean: 'Average',
@@ -121,7 +98,67 @@ function StatCard({ title, stats, delay, isVisible }) {
 
 export default function Stats() {
   const [isVisible, setIsVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [selectedYear, setSelectedYear] = useState('All');
+  const [educationSystem, setEducationSystem] = useState('O/A-Levels');
+  const [statsData, setStatsData] = useState(null);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/data.json')
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error('Error fetching data:', err));
+  }, []);
+
+  useEffect(() => {
+    if (!data.length) return;
+    
+    // Filter purely by year, used for combined SAT metric spanning both systems
+    const filteredData = selectedYear === 'All' ? data : data.filter(d => d.Year === parseInt(selectedYear));
+    const combinedSatScores = filteredData.map(d => d.SAT).filter(n => n).sort((a,b) => a - b);
+
+    // Filter for system-specific grades
+    const systemData = filteredData.filter(d => educationSystem === 'O/A-Levels' ? d.O_Levels !== null : (d.Matric !== null || d.FSc !== null));
+    const oLevels = systemData.map(d => d.O_Levels).filter(n => n).sort((a,b) => a - b);
+    const asLevels = systemData.map(d => d.AS_Levels).filter(n => n).sort((a,b) => a - b);
+    const matricData = systemData.map(d => d.Matric).filter(n => n).sort((a,b) => a - b);
+    const fscData = systemData.map(d => d.FSc).filter(n => n).sort((a,b) => a - b);
+    
+    const calculateStats = (arr) => {
+      if (!arr.length) return null;
+      const count = arr.length;
+      const mean = arr.reduce((a,b) => a+b, 0) / count;
+      const variance = arr.reduce((a,b) => a + Math.pow(b - mean, 2), 0) / count;
+      const std = Math.sqrt(variance);
+      const min = arr[0];
+      const max = arr[count - 1];
+      const getPercentile = (p) => {
+        const idx = (count - 1) * p;
+        const lower = Math.floor(idx);
+        const upper = Math.ceil(idx);
+        const weight = idx - lower;
+        if (upper >= count) return arr[lower];
+        return arr[lower] * (1 - weight) + arr[upper] * weight;
+      };
+      
+      return {
+        count, mean, std, min,
+        '25%': getPercentile(0.25),
+        '50%': getPercentile(0.50),
+        '75%': getPercentile(0.75),
+        max
+      };
+    };
+    
+    setStatsData({
+      SAT: calculateStats(combinedSatScores),
+      'O Levels': educationSystem === 'O/A-Levels' ? calculateStats(oLevels) : null,
+      'AS Levels': educationSystem === 'O/A-Levels' ? calculateStats(asLevels) : null,
+      Matric: educationSystem === 'Matric/FSc' ? calculateStats(matricData) : null,
+      FSc: educationSystem === 'Matric/FSc' ? calculateStats(fscData) : null,
+    });
+  }, [data, selectedYear, educationSystem]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -157,23 +194,86 @@ export default function Stats() {
             Statistical breakdown of admitted students
           </p>
           <div
+            className={`mt-4 space-y-1 text-sm md:text-base text-yellow-300/80 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          >
+            <p>* Statistics may not be accurate since 2026 decisions are still rolling out.</p>
+            <p>* Matric/FSc data for 2025 is not available.</p>
+            <p>* SAT statistics are combined (for both O/A Levels and Matric/FSc students).</p>
+          </div>
+          <div
             className={`w-24 md:w-32 h-1 bg-white opacity-30 mx-auto mt-4 md:mt-6 transition-all duration-1000 delay-300 ${isVisible ? 'scale-x-100' : 'scale-x-0'}`}
           ></div>
         </div>
+        
+        <div className={`flex flex-row flex-wrap gap-4 items-center justify-center mb-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex gap-4 items-center bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+            <span className="text-white text-sm uppercase tracking-wider ml-2">System:</span>
+            {['O/A-Levels', 'Matric/FSc'].map(system => (
+              <button
+                key={system}
+                onClick={() => setEducationSystem(system)}
+                className={`px-4 py-2 rounded-lg text-sm transition-all ${educationSystem === system ? 'bg-white text-black font-medium' : 'text-white hover:bg-white/20'}`}
+              >
+                {system}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-4 items-center bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+            <span className="text-white text-sm uppercase tracking-wider ml-2">Admission Year:</span>
+            {['All', '2025', '2026'].map(year => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`px-4 py-2 rounded-lg text-sm transition-all ${selectedYear === year ? 'bg-white text-black font-medium' : 'text-white hover:bg-white/20'}`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
-          <StatCard
-            title="SAT Scores"
-            stats={statsData.SAT}
-            delay={400}
-            isVisible={isVisible}
-          />
-          <StatCard
-            title="O Levels Points"
-            stats={statsData['O Levels']}
-            delay={600}
-            isVisible={isVisible}
-          />
+          {statsData && statsData.SAT && (
+            <StatCard
+              title="SAT Scores"
+              stats={statsData.SAT}
+              delay={400}
+              isVisible={isVisible}
+            />
+          )}
+          {statsData && statsData['O Levels'] && (
+            <StatCard
+              title="O Levels Points"
+              stats={statsData['O Levels']}
+              delay={600}
+              isVisible={isVisible}
+            />
+          )}
+          {statsData && statsData['AS Levels'] && (
+            <StatCard
+              title="AS Levels Points"
+              stats={statsData['AS Levels']}
+              delay={800}
+              isVisible={isVisible}
+            />
+          )}
+          {statsData && statsData.Matric && (
+            <StatCard
+              title="Matric Percentage"
+              stats={statsData.Matric}
+              delay={600}
+              isVisible={isVisible}
+            />
+          )}
+          {statsData && statsData.FSc && (
+            <StatCard
+              title="FSc Percentage"
+              stats={statsData.FSc}
+              delay={800}
+              isVisible={isVisible}
+            />
+          )}
         </div>
 
         <div
