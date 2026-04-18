@@ -1,5 +1,7 @@
 
 
+import { useState } from "react";
+import { SettingsContext } from "../context";
 import Navbar from '../components/navbar';
 import Hero from '../components/hero';
 import About from '../components/about';
@@ -25,9 +27,12 @@ export function meta() {
   ];
 }
 
+
+
 export default function Home() {
+  const [showGrades, setShowGrades] = useState(true);
   return (
-    <>
+    <SettingsContext.Provider value={{ showGrades, setShowGrades }}>
       <Navbar />
       <Hero />
       <div id="about">
@@ -39,6 +44,6 @@ export default function Home() {
       <div id="visualizations">
         <Graphs />
       </div>
-    </>
+    </SettingsContext.Provider>
   );
 }

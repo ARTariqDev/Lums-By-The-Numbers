@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { SettingsContext } from '../context';
 
 const statLabels = {
   count: 'Sample Size',
@@ -64,6 +65,27 @@ function CountUpNumber({ end, duration = 2000, decimals = 0, isVisible }) {
 }
 
 function StatCard({ title, stats, delay, isVisible }) {
+  const settings = useContext(SettingsContext);
+  const showGrades = settings?.showGrades ?? true;
+  
+  const estimateGrades = (points, isAsLevel = false) => {
+    if (!points || isNaN(points)) return points;
+    if (isAsLevel) {
+      const aCount = Math.floor(points / 10);
+      const bCount = Math.floor((points % 10) / 5);
+      let str = [];
+      if (aCount > 0) str.push(`${aCount}a`);
+      if (bCount > 0) str.push(`${bCount}b`);
+      return str.length > 0 ? `~ ${str.join(', ')}` : `${points}`;
+    } else {
+      const aStar = Math.round(points / 10);
+      return aStar > 0 ? `~ ${aStar}A*` : `${points}`;
+    }
+  };
+
+  const isPointsLevel = title.includes('Points');
+  const isAsLevel = title.includes('AS');
+
   return (
     <div
       className={`stat-card border border-white border-opacity-10 rounded-xl md:rounded-2xl p-4 md:p-8 backdrop-blur-sm transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
@@ -83,12 +105,25 @@ function StatCard({ title, stats, delay, isVisible }) {
               {statLabels[key]}
             </div>
             <div className="text-white text-xl md:text-3xl lg:text-4xl">
-              <CountUpNumber
-                end={value}
-                decimals={key === 'mean' || key === 'std' ? 2 : 0}
-                isVisible={isVisible}
-              />
+              {(!showGrades || !isPointsLevel || key === 'count') ? (
+                <CountUpNumber
+                  end={value}
+                  decimals={key === 'mean' || key === 'std' ? 2 : 0}
+                  isVisible={isVisible}
+                />
+              ) : (
+                <span>{estimateGrades(value, isAsLevel)}</span>
+              )}
             </div>
+            {isPointsLevel && showGrades && key !== 'count' && (
+              <div className="text-white/40 text-xs mt-1">
+                <CountUpNumber
+                  end={value}
+                  decimals={key === 'mean' || key === 'std' ? 2 : 0}
+                  isVisible={isVisible}
+                /> pts
+              </div>
+            )}
           </div>
         ))}
       </div>

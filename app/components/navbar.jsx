@@ -1,7 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Link, useLocation } from 'react-router';
+import { SettingsContext } from '../context';
 
 export default function Navbar() {
+  const settings = useContext(SettingsContext);
+  const showGrades = settings?.showGrades ?? true;
+  const setShowGrades = settings?.setShowGrades ?? (() => {});
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [activeSection, setActiveSection] = useState('/');
@@ -151,6 +156,14 @@ export default function Navbar() {
                   </Link>
                 )
               ))}
+              {settings && (
+                <button
+                  onClick={() => setShowGrades(!showGrades)}
+                  className="text-sm font-light tracking-wide transition-all text-white text-opacity-70 hover:text-opacity-100 border border-white/20 rounded-xl px-3 py-1 bg-white/5"
+                >
+                  View: {showGrades ? 'Estimated Grades' : 'Points'}
+                </button>
+              )}
             </div>
 
             <button

@@ -529,5 +529,68 @@
     "Matric": 90.9,
     "School": "SDSB",
     "Year": 2026
+  },
+  {
+    "SAT": 1330,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 91,
+    "Matric": 96.5,
+    "School": "SBASSE",
+    "Year": 2026
+  },
+  {
+    "SAT": 1460,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 87.5,
+    "Matric": 89.5,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1290,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 92,
+    "Matric": 96,
+    "School": "MGHSS",
+    "Year": 2026
+  },
+  {
+    "SAT": 1400,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 88.3,
+    "Matric": 96,
+    "School": "MGHSS",
+    "Year": 2026
+  },
+  {
+    "SAT": 1460,
+    "O_Levels": 65,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1540,
+    "O_Levels": 52,
+    "AS_Levels": 40,
+    "FSc": null,
+    "Matric": null,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1460,
+    "O_Levels": 71,
+    "AS_Levels": 26,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026
   }
 ]

@@ -77,7 +77,7 @@ export default function About() {
               <div>
                 <h3 className="text-white text-xl font-light mb-3 tracking-wide">Important Note</h3>
                 <p className="text-white text-base md:text-lg leading-relaxed font-light opacity-70">
-                  Data is calculated using O levels "points" to enable better visualisation. O level "points" are calculated based on A's and A*'s. A grades = 7 points, A* = 10 points. For AS Grades, a = 10 points, b = 5 points. The total sample size for this data set is {sampleSize} and is based on last years admissions cycle, the personal statement, level and quality of extracurriculars, awards and honours wasn't accounted for either. As a result, please take this data with a grain of salt (especially since it doesn't paint a full picture of each applicant's profiles).
+                  Data is calculated using O levels "points" to enable better visualisation. O level "points" are calculated based on A's and A*'s. A grades = 7 points, A* = 10 points. For AS Grades, a = 10 points, b = 5 points. To make interpreting the data easier, we also provide estimated Grades toggled by default. These simply approximate points back to typical grade combinations (e.g. 69 pts ≈ ~7A*). You can toggle between viewing Points or Estimated Grades using the button in the navigation bar. The total sample size for this data set is {sampleSize} and is based on last years admissions cycle, the personal statement, level and quality of extracurriculars, awards and honours wasn't accounted for either. As a result, please take this data with a grain of salt (especially since it doesn't paint a full picture of each applicant's profiles).
                 </p>
               </div>
             </div>

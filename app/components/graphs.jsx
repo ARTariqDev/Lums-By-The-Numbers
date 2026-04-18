@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { SettingsContext } from '../context';
 
 let Bar, Scatter, Chart;
 let ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend;
@@ -21,6 +22,24 @@ export default function Graphs() {
   const [chartsLoaded, setChartsLoaded] = useState(false);
   const sectionRef = useRef(null);
   
+  const settings = useContext(SettingsContext);
+  const showGrades = settings?.showGrades ?? true;
+  
+  const estimateGrades = (points, isAsLevel = false) => {
+    if (!points || isNaN(points)) return points;
+    if (isAsLevel) {
+      const aCount = Math.floor(points / 10);
+      const bCount = Math.floor((points % 10) / 5);
+      let str = [];
+      if (aCount > 0) str.push(`${aCount}a`);
+      if (bCount > 0) str.push(`${bCount}b`);
+      return str.length > 0 ? `~ ${str.join(', ')}` : `${points}`;
+    } else {
+      const aStar = Math.round(points / 10);
+      return aStar > 0 ? `~ ${aStar}A*` : `${points}`;
+    }
+  };
+
   const [userSAT, setUserSAT] = useState('');
   const [userOLevels, setUserOLevels] = useState('');
   const [userASLevels, setUserASLevels] = useState('');
@@ -701,7 +720,17 @@ export default function Graphs() {
       },
       y: {
         title: { display: true, text: yAxisTitle, color: '#ffffff', font: { size: 14 } },
-        ticks: { color: '#ffffff', font: { size: 12 } },
+        ticks: { 
+          color: '#ffffff', 
+          font: { size: 12 },
+          callback: function(value) {
+            if (showGrades && educationSystem === 'O/A-Levels') {
+              const isAs = yAxisLabel.includes('AS Levels');
+              return `${estimateGrades(value, isAs)} (${value})`;
+            }
+            return value;
+          }
+        },
         grid: { color: 'rgba(255, 255, 255, 0.1)' },
       },
     },
@@ -742,6 +771,9 @@ export default function Graphs() {
           color: '#ffffff', 
           font: { size: 12 },
           stepSize: educationSystem === 'O/A-Levels' ? 30 : 10,
+          callback: function(value) {
+            return (showGrades && educationSystem === 'O/A-Levels') ? `${estimateGrades(value)} (${value})` : value;
+          }
         },
         grid: { color: 'rgba(255, 255, 255, 0.1)' },
       },
@@ -762,6 +794,9 @@ export default function Graphs() {
           color: '#ffffff', 
           font: { size: 12 },
           stepSize: 10,
+          callback: function(value) {
+            return (showGrades && educationSystem === 'O/A-Levels') ? `${estimateGrades(value, true)} (${value})` : value;
+          }
         },
         grid: { color: 'rgba(255, 255, 255, 0.1)' },
       },
@@ -913,13 +948,15 @@ export default function Graphs() {
                 <div className="text-white text-sm md:text-base uppercase tracking-widest opacity-50 mb-2 md:mb-3">
                   Average O Levels Points
                 </div>
-                <div className="text-white text-4xl md:text-5xl lg:text-6xl font-extralight">{avgOLevels}</div>
+                <div className="text-white text-4xl md:text-5xl lg:text-6xl font-extralight">{showGrades ? estimateGrades(avgOLevels) : avgOLevels}
+                  {showGrades && <div className="text-white/40 text-[10px] md:text-sm mt-2">{avgOLevels} pts</div>}</div>
               </div>
               <div className="border border-white border-opacity-10 rounded-xl md:rounded-2xl p-6 md:p-8 backdrop-blur-sm text-center stat-card">
                 <div className="text-white text-sm md:text-base uppercase tracking-widest opacity-50 mb-2 md:mb-3">
                   Average AS Levels Points
                 </div>
-                <div className="text-white text-4xl md:text-5xl lg:text-6xl font-extralight">{avgASLevels}</div>
+                <div className="text-white text-4xl md:text-5xl lg:text-6xl font-extralight">{showGrades ? estimateGrades(avgASLevels, true) : avgASLevels}
+                  {showGrades && <div className="text-white/40 text-[10px] md:text-sm mt-2">{avgASLevels} pts</div>}</div>
               </div>
             </>
           ) : (
