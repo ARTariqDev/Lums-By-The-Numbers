@@ -195,13 +195,19 @@ export default function Graphs() {
     const oLevels = getUserOLevels();
 
     if (!sat || !oLevels || sat < 400 || sat > 1600 || oLevels < 0) {
-      setPrediction({ error: 'Please enter valid scores' });
+      setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(), error: 'Please enter valid scores' });
       return;
     }
 
+    const predictorData = combinedFilteredData.filter(d => educationSystem === 'O/A-Levels' ? d.O_Levels !== null : (d.Matric !== null || d.FSc !== null));
+
     const schoolStats = {};
     schools.forEach(school => {
-      const schoolData = filteredData.filter(d => d.School === school);
+      const schoolData = predictorData.filter(d => d.School === school);
       const satValues = schoolData.map(d => d.SAT).filter(n => n);
       const oLevelsValues = schoolData.map(d => educationSystem === 'O/A-Levels' ? d.O_Levels : d.FSc || d.Matric).filter(n => n);
       schoolStats[school] = {
@@ -218,6 +224,10 @@ export default function Graphs() {
 
     if (aboveAllSchools) {
       setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
         result: 'Highly competitive for any school',
         message: `Excellent! Your scores are above the upper quartile for all schools. You're a strong candidate for admission to any program.`,
         sat,
@@ -236,6 +246,10 @@ export default function Graphs() {
 
     if (belowAllSchools) {
       setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
         result: 'Not likely to be admitted',
         message: `Your scores are significantly below the typical range for all schools. Consider strengthening your academic profile before applying.`,
         sat,
@@ -253,6 +267,10 @@ export default function Graphs() {
 
       if (sat >= satUQ && oLevels >= oLevelsUQ) {
         setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
           result: `Strong candidate for ${desiredSchool}`,
           message: `Your scores are above the upper quartile for ${desiredSchool}. You have a strong chance of admission!`,
           sat,
@@ -285,6 +303,10 @@ export default function Graphs() {
         }
 
         setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
           result: `Not likely to be admitted to ${desiredSchool}`,
           message,
           sat,
@@ -296,6 +318,10 @@ export default function Graphs() {
       if (satBelowLQ && !oLevelsBelowLQ) {
         if (sat >= satGraceMargin) {
           setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
             result: `Competitive for ${desiredSchool}`,
             message: `Your ${educationSystem === 'O/A-Levels' ? 'O Levels' : 'Matric/FSc'} are strong for ${desiredSchool}. Your SAT score is slightly below the median but still competitive.`,
             sat,
@@ -304,6 +330,10 @@ export default function Graphs() {
           return;
         } else {
           setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
             result: `Possible but unlikely for ${desiredSchool}`,
             message: `Your SAT score is below the lower quartile for ${desiredSchool}, though your O Levels are strong. Admission is possible but may be challenging.`,
             sat,
@@ -314,6 +344,10 @@ export default function Graphs() {
       } else if (oLevelsBelowLQ && !satBelowLQ) {
         if (oLevels >= oLevelsGraceMargin) {
           setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
             result: `Competitive for ${desiredSchool}`,
             message: `Your SAT score is strong for ${desiredSchool}. Your ${educationSystem === 'O/A-Levels' ? 'O Levels' : 'Matric/FSc'} are slightly below the median but still competitive.`,
             sat,
@@ -322,6 +356,10 @@ export default function Graphs() {
           return;
         } else {
           setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
             result: `Possible but unlikely for ${desiredSchool}`,
             message: `Your ${educationSystem === 'O/A-Levels' ? 'O Levels' : 'Matric/FSc'} are below the lower quartile for ${desiredSchool}, though your SAT score is strong. Admission is possible but may be challenging.`,
             sat,
@@ -331,6 +369,10 @@ export default function Graphs() {
         }
       } else if (satBelowLQ && oLevelsBelowLQ) {
         setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
           result: `Possible but unlikely for ${desiredSchool}`,
           message: `Your scores are below the lower quartile for ${desiredSchool}. Admission is possible but may be challenging. Consider strengthening other aspects of your application.`,
           sat,
@@ -340,6 +382,10 @@ export default function Graphs() {
       }
 
       setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
         result: `Good fit for ${desiredSchool}`,
         message: `Your scores are within the competitive range for ${desiredSchool}. You have a reasonable chance of admission.`,
         sat,
@@ -351,7 +397,7 @@ export default function Graphs() {
     const unmappedAsLevels = getUserASLevels();
     const parsedAsLevels = unmappedAsLevels !== null ? parseFloat(unmappedAsLevels) : null;
 
-    const distances = data.filter(d => d.School && d.SAT).map(d => {
+    const distances = predictorData.filter(d => d.School && d.SAT).map(d => {
       const dbSat = d.SAT;
       const dbOLevels = educationSystem === 'O/A-Levels' ? d.O_Levels : (d.FSc || d.Matric);
       let distSq = Math.pow(dbSat - sat, 2) + Math.pow(dbOLevels - oLevels, 2);
@@ -387,6 +433,10 @@ export default function Graphs() {
     }
 
     setPrediction({
+      system: educationSystem,
+      matric: userMatric ? parseFloat(userMatric) : null,
+      fsc: userFSc ? parseFloat(userFSc) : null,
+      asLevels: getUserASLevels(),
       result: `Good fit for ${predictedSchool}`,
       message: `Based on similar admitted students, you may be a competitive candidate for ${predictedSchool}.`,
       sat,
@@ -542,10 +592,11 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.O_Levels !== null)
-        .map((d) => ({ x: d.SAT, y: d.O_Levels })),
+        .map((d) => ({ x: d.SAT, y: d.O_Levels, merit: d.merit_scholarship })),
       backgroundColor: schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: window.innerWidth < 768 ? 2.5 : 5,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -555,10 +606,11 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.AS_Levels !== null)
-        .map((d) => ({ x: d.SAT, y: d.AS_Levels })),
+        .map((d) => ({ x: d.SAT, y: d.AS_Levels, merit: d.merit_scholarship })),
       backgroundColor: schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: window.innerWidth < 768 ? 2.5 : 5,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -568,10 +620,11 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.Matric !== null)
-        .map((d) => ({ x: d.SAT, y: d.Matric })),
+        .map((d) => ({ x: d.SAT, y: d.Matric, merit: d.merit_scholarship })),
       backgroundColor: schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: window.innerWidth < 768 ? 2.5 : 5,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -581,17 +634,17 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.FSc !== null)
-        .map((d) => ({ x: d.SAT, y: d.FSc })),
+        .map((d) => ({ x: d.SAT, y: d.FSc, merit: d.merit_scholarship })),
       backgroundColor: schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: window.innerWidth < 768 ? 2.5 : 5,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
-  if (prediction && prediction.sat && prediction.oLevels) {
-    const youDataset = {
+  if (prediction && prediction.sat) {
+    const youBase = {
       label: 'You',
-      data: [{ x: prediction.sat, y: prediction.oLevels }],
       backgroundColor: '#00FF00',
       borderColor: '#FFFFFF',
       borderWidth: 2,
@@ -600,11 +653,12 @@ export default function Graphs() {
       pointStyle: 'star',
     };
     
-    if (educationSystem === 'O/A-Levels') {
-      oLevelsScatterDatasets.push(youDataset);
-    } else {
-      matricScatterDatasets.push(youDataset);
-      fscScatterDatasets.push(youDataset);
+    if (prediction.system === 'O/A-Levels' && educationSystem === 'O/A-Levels') {
+      if (prediction.oLevels !== null) oLevelsScatterDatasets.push({ ...youBase, data: [{ x: prediction.sat, y: prediction.oLevels }] });
+      if (prediction.asLevels !== null) asLevelsScatterDatasets.push({ ...youBase, data: [{ x: prediction.sat, y: prediction.asLevels }] });
+    } else if (prediction.system === 'Matric/FSc' && educationSystem === 'Matric/FSc') {
+      if (prediction.matric !== null) matricScatterDatasets.push({ ...youBase, data: [{ x: prediction.sat, y: prediction.matric }] });
+      if (prediction.fsc !== null) fscScatterDatasets.push({ ...youBase, data: [{ x: prediction.sat, y: prediction.fsc }] });
     }
   }
 
@@ -637,6 +691,7 @@ export default function Graphs() {
         bodyFont: { size: 12 },
         titleFont: { size: 13, weight: 'bold' },
         displayColors: true,
+        usePointStyle: true,
         boxWidth: 8,
         boxHeight: 8,
         boxPadding: 4,
@@ -697,6 +752,7 @@ export default function Graphs() {
         bodyFont: { size: 12 },
         titleFont: { size: 13, weight: 'bold' },
         displayColors: true,
+        usePointStyle: true,
         boxWidth: 8,
         boxHeight: 8,
         boxPadding: 4,
@@ -704,10 +760,14 @@ export default function Graphs() {
         cornerRadius: 6,
         callbacks: {
           label: (context) => {
-            return [
+            const merit = context.raw?.merit ? 'Merit Scholarship' : '';
+            const labelArr = [
               `SAT: ${context.parsed.x}`,
+
               `${yAxisLabel}: ${context.parsed.y}`
             ];
+            if (merit) labelArr.push(merit);
+            return labelArr;
           }
         }
       },
@@ -856,8 +916,14 @@ export default function Graphs() {
           }`}
         >
           <p>* Statistics may not be accurate since 2026 decisions are still rolling out.</p>
-          <p>* Matric/FSc data for 2025 is not available.</p>
+          <p>* Limited Matric/FSc data is available for 2025.</p>
           <p>* SAT statistics are combined (for both O/A Levels and Matric/FSc students).</p>
+          <p className="flex items-center justify-center gap-2 mt-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="inline-block text-white">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+            <span>shaped data points represent Merit Scholarship recipients.</span>
+          </p>
         </div>
 
         <div

@@ -245,7 +245,8 @@
     "FSc": null,
     "Matric": null,
     "School": "SDSB",
-    "Year": 2025
+    "Year": 2025,
+    "merit_scholarship": true
   },
   {
     "SAT": 1370,
@@ -301,7 +302,8 @@
     "FSc": null,
     "Matric": null,
     "School": "SBASSE",
-    "Year": 2025
+    "Year": 2025,
+    "merit_scholarship": true
   },
   {
     "SAT": 1280,
@@ -592,5 +594,98 @@
     "Matric": null,
     "School": "MGHSS",
     "Year": 2026
+  },
+  {
+    "SAT": 1540,
+    "O_Levels": 90,
+    "AS_Levels": 30,
+    "FSc": null,
+    "Matric": null,
+    "School": "SBASSE",
+    "Year": 2026,
+    "merit_scholarship": true
+  },
+  {
+    "SAT": 1540,
+    "O_Levels": 100,
+    "AS_Levels": 50,
+    "FSc": null,
+    "Matric": null,
+    "School": "SBASSE",
+    "Year": 2026,
+    "merit_scholarship": true
+  },
+  {
+    "SAT": 1530,
+    "O_Levels": 80,
+    "AS_Levels": 40,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026,
+    "merit_scholarship": false
+  },
+  {
+    "SAT": 1450,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 84,
+    "Matric": 95,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1180,
+    "O_Levels": 87,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026
+  },
+  {
+    "SAT": 1420,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 93.3,
+    "Matric": 94.5,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1520,
+    "O_Levels": 77,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "SBASSE",
+    "Year": 2026
+  },
+  {
+    "SAT": 1500,
+    "O_Levels": 62,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1200,
+    "O_Levels": 45,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026
+  },
+  {
+    "SAT": 1290,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 96,
+    "Matric": 88,
+    "School": "SBASSE",
+    "Year": 2025
   }
 ]
