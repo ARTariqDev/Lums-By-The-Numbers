@@ -36,7 +36,6 @@ function CountUpNumber({ end, duration = 2000, decimals = 0, isVisible }) {
       const elapsed = currentTime - startTimeRef.current;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const current = easeOutQuart * end;
       
@@ -88,23 +87,23 @@ function StatCard({ title, stats, delay, isVisible }) {
 
   return (
     <div
-      className={`stat-card border border-white border-opacity-10 rounded-xl md:rounded-2xl p-4 md:p-8 backdrop-blur-sm transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+      className={`stat-card border border-white border-opacity-10 rounded-xl p-3 md:p-5 backdrop-blur-sm transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <h3 className="text-2xl md:text-3xl lg:text-4xl font-extralight text-white mb-4 md:mb-8 tracking-wide text-center">
+      <h3 className="text-lg md:text-xl font-extralight text-white mb-3 md:mb-4 tracking-wide text-center">
         {title}
       </h3>
-      <div className="grid grid-cols-2 gap-3 md:gap-6">
+      <div className="grid grid-cols-2 gap-2 md:gap-3">
         {Object.entries(stats).map(([key, value], index) => (
           <div
             key={key}
             className={`text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
             style={{ transitionDelay: `${delay + 200 + index * 100}ms` }}
           >
-            <div className="text-white text-[10px] md:text-sm uppercase tracking-widest opacity-50 mb-1 md:mb-2">
+            <div className="text-white text-[9px] md:text-xs uppercase tracking-widest opacity-50 mb-0.5 md:mb-1">
               {statLabels[key]}
             </div>
-            <div className="text-white text-xl md:text-3xl lg:text-4xl">
+            <div className="text-white text-base md:text-xl lg:text-2xl">
               {(!showGrades || !isPointsLevel || key === 'count') ? (
                 <CountUpNumber
                   end={value}
@@ -116,7 +115,7 @@ function StatCard({ title, stats, delay, isVisible }) {
               )}
             </div>
             {isPointsLevel && showGrades && key !== 'count' && (
-              <div className="text-white/40 text-xs mt-1">
+              <div className="text-white/40 text-xs mt-0.5">
                 <CountUpNumber
                   end={value}
                   decimals={key === 'mean' || key === 'std' ? 2 : 0}
@@ -149,11 +148,9 @@ export default function Stats() {
   useEffect(() => {
     if (!data.length) return;
     
-    // Filter purely by year, used for combined SAT metric spanning both systems
     const filteredData = selectedYear === 'All' ? data : data.filter(d => d.Year === parseInt(selectedYear));
     const combinedSatScores = filteredData.map(d => d.SAT).filter(n => n).sort((a,b) => a - b);
 
-    // Filter for system-specific grades
     const systemData = filteredData.filter(d => educationSystem === 'O/A-Levels' ? d.O_Levels !== null : (d.Matric !== null || d.FSc !== null));
     const oLevels = systemData.map(d => d.O_Levels).filter(n => n).sort((a,b) => a - b);
     const asLevels = systemData.map(d => d.AS_Levels).filter(n => n).sort((a,b) => a - b);
@@ -268,7 +265,7 @@ export default function Stats() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
           {statsData && statsData.SAT && (
             <StatCard
               title="SAT Scores"
