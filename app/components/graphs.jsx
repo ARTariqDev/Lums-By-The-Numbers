@@ -592,11 +592,14 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.O_Levels !== null)
-        .map((d) => ({ x: d.SAT, y: d.O_Levels, merit: d.merit_scholarship })),
+        .map((d) => ({ x: d.SAT, y: d.O_Levels, merit: d.merit_scholarship, second_pref: d.second_pref, first_pref: d.first_pref })),
       backgroundColor: schoolColors[school],
+      pointBackgroundColor: (ctx) => ctx.raw?.second_pref && ctx.raw?.first_pref ? schoolColors[ctx.raw.first_pref] : schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
-      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
+      pointBorderColor: schoolColors[school],
+      pointBorderWidth: (ctx) => ctx.raw?.second_pref ? 3 : 1,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (ctx.raw?.second_pref ? (window.innerWidth < 768 ? 5 : 7) : (window.innerWidth < 768 ? 2.5 : 5)),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : (ctx.raw?.second_pref ? 'triangle' : 'circle'),
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -606,11 +609,14 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.AS_Levels !== null)
-        .map((d) => ({ x: d.SAT, y: d.AS_Levels, merit: d.merit_scholarship })),
+        .map((d) => ({ x: d.SAT, y: d.AS_Levels, merit: d.merit_scholarship, second_pref: d.second_pref, first_pref: d.first_pref })),
       backgroundColor: schoolColors[school],
+      pointBackgroundColor: (ctx) => ctx.raw?.second_pref && ctx.raw?.first_pref ? schoolColors[ctx.raw.first_pref] : schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
-      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
+      pointBorderColor: schoolColors[school],
+      pointBorderWidth: (ctx) => ctx.raw?.second_pref ? 3 : 1,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (ctx.raw?.second_pref ? (window.innerWidth < 768 ? 5 : 7) : (window.innerWidth < 768 ? 2.5 : 5)),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : (ctx.raw?.second_pref ? 'triangle' : 'circle'),
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -620,11 +626,14 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.Matric !== null)
-        .map((d) => ({ x: d.SAT, y: d.Matric, merit: d.merit_scholarship })),
+        .map((d) => ({ x: d.SAT, y: d.Matric, merit: d.merit_scholarship, second_pref: d.second_pref, first_pref: d.first_pref })),
       backgroundColor: schoolColors[school],
+      pointBackgroundColor: (ctx) => ctx.raw?.second_pref && ctx.raw?.first_pref ? schoolColors[ctx.raw.first_pref] : schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
-      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
+      pointBorderColor: schoolColors[school],
+      pointBorderWidth: (ctx) => ctx.raw?.second_pref ? 3 : 1,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (ctx.raw?.second_pref ? (window.innerWidth < 768 ? 5 : 7) : (window.innerWidth < 768 ? 2.5 : 5)),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : (ctx.raw?.second_pref ? 'triangle' : 'circle'),
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -634,11 +643,14 @@ export default function Graphs() {
       label: school,
       data: filteredData
         .filter((d) => d.School === school && d.FSc !== null)
-        .map((d) => ({ x: d.SAT, y: d.FSc, merit: d.merit_scholarship })),
+        .map((d) => ({ x: d.SAT, y: d.FSc, merit: d.merit_scholarship, second_pref: d.second_pref, first_pref: d.first_pref })),
       backgroundColor: schoolColors[school],
+      pointBackgroundColor: (ctx) => ctx.raw?.second_pref && ctx.raw?.first_pref ? schoolColors[ctx.raw.first_pref] : schoolColors[school],
       borderColor: schoolColors[school],
-      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (window.innerWidth < 768 ? 2.5 : 5),
-      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : 'circle',
+      pointBorderColor: schoolColors[school],
+      pointBorderWidth: (ctx) => ctx.raw?.second_pref ? 3 : 1,
+      pointRadius: (ctx) => ctx.raw?.merit ? (window.innerWidth < 768 ? 6 : 10) : (ctx.raw?.second_pref ? (window.innerWidth < 768 ? 5 : 7) : (window.innerWidth < 768 ? 2.5 : 5)),
+      pointStyle: (ctx) => ctx.raw?.merit ? 'star' : (ctx.raw?.second_pref ? 'triangle' : 'circle'),
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
 
@@ -740,7 +752,49 @@ export default function Graphs() {
           color: '#ffffff',
           font: { size: 14, family: 'Inter' },
           usePointStyle: true,
+          generateLabels: (chart) => {
+            const original = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+            
+            // Find all unique 1st -> 2nd combinations in the filtered data
+            const combos = new Set();
+            filteredData.forEach(d => {
+              if (d.second_pref && d.first_pref) {
+                combos.add(`${d.first_pref}->${d.School}`);
+              }
+            });
+            
+            const comboLegends = Array.from(combos).map((combo, i) => {
+              const [first, second] = combo.split('->');
+              return {
+                text: `${second} (1st: ${first})`,
+                pointStyle: 'triangle',
+                fillStyle: schoolColors[first] || 'transparent',
+                strokeStyle: schoolColors[second] || '#ffffff',
+                lineWidth: 3,
+                hidden: false,
+                datasetIndex: `_custom_combo_${i}`
+              };
+            });
+
+            return [
+              ...original,
+              { 
+                text: 'Merit Scholarship', 
+                pointStyle: 'star', 
+                fillStyle: '#FFCE56',
+                strokeStyle: '#FFCE56',
+                hidden: false,
+                datasetIndex: '_custom_merit'
+              },
+              ...comboLegends
+            ];
+          }
         },
+        onClick: (e, legendItem, legend) => {
+          if (legendItem.datasetIndex !== '_custom_merit' && !String(legendItem.datasetIndex).startsWith('_custom_combo_')) {
+            ChartJS.defaults.plugins.legend.onClick.call(legend, e, legendItem, legend);
+          }
+        }
       },
       tooltip: {
         backgroundColor: 'rgba(0, 0, 0, 0.95)',
@@ -761,12 +815,15 @@ export default function Graphs() {
         callbacks: {
           label: (context) => {
             const merit = context.raw?.merit ? 'Merit Scholarship' : '';
+            const secondPref = context.raw?.second_pref ? `Admitted to ${context.dataset.label} (2nd Pref)` : '';
+            const firstPref = context.raw?.first_pref ? `Rejected from: ${context.raw.first_pref} (1st Pref)` : '';
             const labelArr = [
               `SAT: ${context.parsed.x}`,
-
               `${yAxisLabel}: ${context.parsed.y}`
             ];
             if (merit) labelArr.push(merit);
+            if (secondPref) labelArr.push(secondPref);
+            if (firstPref) labelArr.push(firstPref);
             return labelArr;
           }
         }
@@ -918,12 +975,6 @@ export default function Graphs() {
           <p>* Statistics may not be accurate since 2026 decisions are still rolling out.</p>
           <p>* Limited Matric/FSc data is available for 2025.</p>
           <p>* SAT statistics are combined (for both O/A Levels and Matric/FSc students).</p>
-          <p className="flex items-center justify-center gap-2 mt-2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="inline-block text-white">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-            <span>shaped data points represent Merit Scholarship recipients.</span>
-          </p>
         </div>
 
         <div

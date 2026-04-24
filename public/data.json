@@ -496,7 +496,9 @@
     "FSc": null,
     "Matric": null,
     "School": "MGHSS",
-    "Year": 2026
+    "Year": 2026,
+    "second_pref": true,
+    "first_pref": "SBASSE"
   },
   {
     "SAT": 1480,
@@ -504,14 +506,6 @@
     "FSc": null,
     "Matric": null,
     "School": "SBASSE",
-    "Year": 2026
-  },
-  {
-    "SAT": 1480,
-    "O_Levels": 62,
-    "FSc": null,
-    "Matric": null,
-    "School": "MGHSS",
     "Year": 2026
   },
   {
@@ -593,7 +587,9 @@
     "FSc": null,
     "Matric": null,
     "School": "MGHSS",
-    "Year": 2026
+    "Year": 2026,
+    "second_pref": true,
+    "first_pref": "SBASSE"
   },
   {
     "SAT": 1540,
@@ -668,7 +664,9 @@
     "FSc": null,
     "Matric": null,
     "School": "SDSB",
-    "Year": 2026
+    "Year": 2026,
+    "second_pref": true,
+    "first_pref": "SBASSE"
   },
   {
     "SAT": 1200,
@@ -687,5 +685,54 @@
     "Matric": 88,
     "School": "SBASSE",
     "Year": 2025
+  },
+  {
+    "SAT": 1480,
+    "O_Levels": 117,
+    "AS_Levels": 30,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026
+  },
+  {
+    "SAT": 1530,
+    "O_Levels": 64,
+    "AS_Levels": 40,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS",
+    "Year": 2026,
+    "second_pref": true,
+    "first_pref": "SBASSE"
+  },
+  {
+    "SAT": 1470,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 92,
+    "Matric": 92,
+    "School": "SDSB",
+    "Year": 2026
+  },
+  {
+    "SAT": 1260,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 92,
+    "Matric": 98,
+    "School": "MGHSS",
+    "Year": 2026,
+    "second_pref": true,
+    "first_pref": "SBASSE"
+  },
+  {
+    "SAT": 1510,
+    "O_Levels": 104,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "SBASSE",
+    "Year": 2026
   }
 ]
