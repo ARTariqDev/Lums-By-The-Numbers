@@ -734,5 +734,15 @@
     "Matric": null,
     "School": "SBASSE",
     "Year": 2026
+  },
+  {
+    "SAT": 1430,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 88,
+    "Matric": 90,
+    "School": "SAHSOL",
+    "Year": 2026,
+    "merit_scholarship": false
   }
 ]
