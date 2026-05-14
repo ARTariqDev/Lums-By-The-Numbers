@@ -808,5 +808,41 @@
     "merit_scholarship": false,
     "second_pref": true,
     "first_pref": "SDSB"
+  },
+  {
+    "SAT": 1310,
+    "O_Levels": null,
+    "AS_Levels": 35,
+    "FSc": null,
+    "Matric": 92,
+    "School": "Rejected from SDSB",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "rejected_first_pref": "SDSB"
+  },
+  {
+    "SAT": 1350,
+    "O_Levels": 49,
+    "AS_Levels": null,
+    "FSc": null,
+    "Matric": null,
+    "School": "Rejected from SDSB & MGHSS (Economics)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "rejected_first_pref": "SDSB",
+    "rejected_second_pref": "MGHSS (Economics)"
+  },
+  {
+    "SAT": 1370,
+    "O_Levels": 60,
+    "AS_Levels": 25,
+    "FSc": null,
+    "Matric": null,
+    "School": "MGHSS (Economics)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "second_pref": true,
+    "first_pref": "SBASSE",
+    "rejected_first_pref": "SBASSE"
   }
 ]

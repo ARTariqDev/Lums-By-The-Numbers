@@ -13,6 +13,14 @@ const schoolColors = {
   'SAHSOL': '#4BC0C0',
 };
 
+const rejectionSchoolColors = {
+  'SDSB': '#FFCE56',
+  'SBASSE': '#36A2EB',
+  'MGHSS (Economics)': '#FF6384',
+  'MGHSS (Social Sciences)': '#FF9FB2',
+  'SAHSOL': '#4BC0C0',
+};
+
 export default function Graphs() {
   const [isVisible, setIsVisible] = useState(false);
   const [data, setData] = useState([]);
@@ -97,8 +105,10 @@ export default function Graphs() {
       .then((jsonData) => {
         setData(jsonData);
         const uniqueSchools = [...new Set(jsonData.map((d) => d.School))];
-        setSchools(uniqueSchools);
-        setSelectedSchools(uniqueSchools);
+        // Filter out rejection schools from the display list
+        const displaySchools = uniqueSchools.filter(school => !school.startsWith('Rejected'));
+        setSchools(displaySchools);
+        setSelectedSchools(displaySchools);
       })
       .catch((err) => console.error('Error loading data:', err));
   }, []);
@@ -521,7 +531,7 @@ export default function Graphs() {
   const satBoxData = {
     labels: ['SAT Scores'],
     datasets: schools
-      .filter(school => selectedSchools.includes(school))
+      .filter(school => selectedSchools.includes(school) && !school.startsWith('Rejected'))
       .map(school => ({
         label: school,
         data: [combinedFilteredData.filter(d => d.School === school).map(d => d.SAT)],
@@ -538,7 +548,7 @@ export default function Graphs() {
   const oLevelsBoxData = {
     labels: [educationSystem === 'O/A-Levels' ? 'O Levels Points' : 'Matric %'],
     datasets: schools
-      .filter(school => selectedSchools.includes(school))
+      .filter(school => selectedSchools.includes(school) && !school.startsWith('Rejected'))
       .map(school => ({
         label: school,
         data: [filteredData.filter(d => d.School === school).map(d => educationSystem === 'O/A-Levels' ? d.O_Levels : d.Matric).filter(n => n !== null)],
@@ -555,7 +565,7 @@ export default function Graphs() {
   const asLevelsBoxData = {
     labels: ['AS Levels Points'],
     datasets: schools
-      .filter(school => selectedSchools.includes(school))
+      .filter(school => selectedSchools.includes(school) && !school.startsWith('Rejected'))
       .map(school => ({
         label: school,
         data: [filteredData.filter(d => d.School === school && d.AS_Levels !== null).map(d => d.AS_Levels)],
@@ -572,7 +582,7 @@ export default function Graphs() {
   const fscBoxData = {
     labels: ['FSc %'],
     datasets: schools
-      .filter(school => selectedSchools.includes(school))
+      .filter(school => selectedSchools.includes(school) && !school.startsWith('Rejected'))
       .map(school => ({
         label: school,
         data: [filteredData.filter(d => d.School === school).map(d => d.FSc).filter(n => n !== null)],
@@ -654,6 +664,51 @@ export default function Graphs() {
       pointStyle: (ctx) => ctx.raw?.merit ? 'star' : (ctx.raw?.second_pref ? 'triangle' : 'circle'),
       pointHoverRadius: window.innerWidth < 768 ? 4 : 7,
     }));
+
+  // Create single rejection dataset for scatter plots
+  const createRejectionScatterDataset = (scatterDatasets, yField) => {
+    // Always include rejected students from the full dataset, filtered by year
+    const rejectedStudents = data.filter(d => {
+      const matchSchool = d.School?.startsWith('Rejected');
+      const matchYear = selectedYear === 'All' ? true : d.Year === parseInt(selectedYear);
+      return matchSchool && matchYear;
+    });
+    
+    if (rejectedStudents.length > 0) {
+      const rejectionData = [];
+      rejectedStudents.forEach(student => {
+        if (yField && student[yField] !== null) {
+          rejectionData.push({ 
+            x: student.SAT, 
+            y: student[yField], 
+            rejected_first_pref: student.rejected_first_pref,
+            rejected_second_pref: student.rejected_second_pref
+          });
+        }
+      });
+      
+      if (rejectionData.length > 0) {
+        scatterDatasets.push({
+          label: 'Rejected Applicants',
+          data: rejectionData,
+          backgroundColor: '#EF4444',
+          borderColor: '#DC2626',
+          pointBackgroundColor: '#EF4444',
+          pointBorderColor: '#DC2626',
+          pointBorderWidth: 2,
+          pointRadius: window.innerWidth < 768 ? 4 : 6,
+          pointStyle: 'rectRot',
+          pointHoverRadius: window.innerWidth < 768 ? 5 : 8,
+          hidden: false,
+        });
+      }
+    }
+  };
+
+  createRejectionScatterDataset(oLevelsScatterDatasets, 'O_Levels');
+  createRejectionScatterDataset(asLevelsScatterDatasets, 'AS_Levels');
+  createRejectionScatterDataset(matricScatterDatasets, 'Matric');
+  createRejectionScatterDataset(fscScatterDatasets, 'FSc');
 
   if (prediction && prediction.sat) {
     const youBase = {
@@ -815,6 +870,22 @@ export default function Graphs() {
         cornerRadius: 6,
         callbacks: {
           label: (context) => {
+            // Handle rejection data
+            if (context.dataset.label === 'Rejected Applicants') {
+              const labelArr = [
+                `SAT: ${context.parsed.x}`,
+                `${yAxisLabel}: ${context.parsed.y}`,
+              ];
+              if (context.raw?.rejected_first_pref) {
+                labelArr.push(`Rejected from: ${context.raw.rejected_first_pref}`);
+              }
+              if (context.raw?.rejected_second_pref) {
+                labelArr.push(`Also rejected from: ${context.raw.rejected_second_pref}`);
+              }
+              return labelArr;
+            }
+            
+            // Handle accepted students
             const merit = context.raw?.merit ? 'Merit Scholarship' : '';
             const secondPref = context.raw?.second_pref ? `Admitted to ${context.dataset.label} (2nd Pref)` : '';
             const firstPref = context.raw?.first_pref ? `Rejected from: ${context.raw.first_pref} (1st Pref)` : '';
