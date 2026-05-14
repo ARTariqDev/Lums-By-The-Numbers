@@ -6,7 +6,8 @@ let ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, 
 let BoxPlotController, BoxAndWiskers;
 
 const schoolColors = {
-  'MGHSS': '#FF6384',
+  'MGHSS (Economics)': '#FF6384',
+  'MGHSS (Social Sciences)': '#FF9FB2',
   'SBASSE': '#36A2EB',
   'SDSB': '#FFCE56',
   'SAHSOL': '#4BC0C0',

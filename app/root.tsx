@@ -13,13 +13,13 @@ import "./app.css";
 export const meta: Route.MetaFunction = () => {
   return [
     { title: "Lums By The Numbers - LUMS Admissions Data & Statistics" },
-    { name: "description", content: "Explore verified LUMS admissions data including SAT scores and O Level grades from accepted students. Get insights into admission requirements and predict your chances for MGHSS, SBASSE, SDSB, and SAHSOL." },
+    { name: "description", content: "Explore verified LUMS admissions data including SAT scores and O Level grades from accepted students. Get insights into admission requirements and predict your chances for MGHSS (Economics), MGHSS (Social Sciences), SBASSE, SDSB, and SAHSOL." },
     { name: "keywords", content: "LUMS admissions, LUMS SAT scores, LUMS O levels, LUMS statistics, LUMS MGHSS, LUMS SBASSE, LUMS SDSB, LUMS SAHSOL, Pakistan university admissions, LUMS requirements, LUMS acceptance rate" },
     { name: "author", content: "Abdur Rehman Tariq" },
     { name: "google-site-verification", content: "NowvXA1Cnoi8Ddi97wi-WcKhIYp5PxCVOyN7C7fJTFo" },
     { name: "theme-color", content: "#000000" },
     { property: "og:title", content: "Lums By The Numbers - LUMS Admissions Data & Statistics" },
-    { property: "og:description", content: "Explore verified LUMS admissions data including SAT scores and O Level grades from accepted students across MGHSS, SBASSE, SDSB, and SAHSOL." },
+    { property: "og:description", content: "Explore verified LUMS admissions data including SAT scores and O Level grades from accepted students across MGHSS (Economics), MGHSS (Social Sciences), SBASSE, SDSB, and SAHSOL." },
     { property: "og:type", content: "website" },
     { property: "og:url", content: "https://lumsbythenumbers.vercel.app" },
     { property: "og:image", content: "https://lumsbythenumbers.vercel.app/og.png" },

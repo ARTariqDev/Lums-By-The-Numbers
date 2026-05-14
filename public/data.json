@@ -4,7 +4,7 @@
     "O_Levels": 63,
     "Matric": null,
     "FSc": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -12,7 +12,7 @@
     "O_Levels": 68,
     "Matric": null,
     "FSc": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -28,7 +28,7 @@
     "O_Levels": 58,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -36,7 +36,7 @@
     "O_Levels": 65,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -44,7 +44,7 @@
     "O_Levels": 60,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2025
   },
   {
@@ -60,7 +60,7 @@
     "O_Levels": 74,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -68,7 +68,7 @@
     "O_Levels": 70,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2025
   },
   {
@@ -76,7 +76,7 @@
     "O_Levels": 51,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -108,7 +108,7 @@
     "O_Levels": 68,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2025
   },
   {
@@ -156,7 +156,7 @@
     "O_Levels": 97,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -180,7 +180,7 @@
     "O_Levels": 92,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -188,7 +188,7 @@
     "O_Levels": 89,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2025
   },
   {
@@ -236,7 +236,7 @@
     "O_Levels": 51,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -342,7 +342,7 @@
     "O_Levels": 77,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2025
   },
   {
@@ -390,7 +390,7 @@
     "O_Levels": 84,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -398,7 +398,7 @@
     "O_Levels": 78,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -422,7 +422,7 @@
     "O_Levels": 54,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2025
   },
   {
@@ -446,7 +446,7 @@
     "O_Levels": 65,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026
   },
   {
@@ -454,7 +454,7 @@
     "O_Levels": null,
     "FSc": 88,
     "Matric": 96,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026
   },
   {
@@ -462,7 +462,7 @@
     "O_Levels": null,
     "FSc": 89.6,
     "Matric": 96.25,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2026
   },
   {
@@ -495,7 +495,7 @@
     "O_Levels": 62,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026,
     "second_pref": true,
     "first_pref": "SBASSE"
@@ -550,7 +550,7 @@
     "AS_Levels": null,
     "FSc": 92,
     "Matric": 96,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2026
   },
   {
@@ -559,7 +559,7 @@
     "AS_Levels": null,
     "FSc": 88.3,
     "Matric": 96,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026
   },
   {
@@ -586,7 +586,7 @@
     "AS_Levels": 26,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026,
     "second_pref": true,
     "first_pref": "SBASSE"
@@ -617,7 +617,7 @@
     "AS_Levels": 40,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026,
     "merit_scholarship": false
   },
@@ -636,7 +636,7 @@
     "AS_Levels": null,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2026
   },
   {
@@ -674,7 +674,7 @@
     "AS_Levels": null,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2026
   },
   {
@@ -692,7 +692,7 @@
     "AS_Levels": 30,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026
   },
   {
@@ -701,7 +701,7 @@
     "AS_Levels": 40,
     "FSc": null,
     "Matric": null,
-    "School": "MGHSS",
+    "School": "MGHSS (Economics)",
     "Year": 2026,
     "second_pref": true,
     "first_pref": "SBASSE"
@@ -721,7 +721,7 @@
     "AS_Levels": null,
     "FSc": 92,
     "Matric": 98,
-    "School": "MGHSS",
+    "School": "MGHSS (Social Sciences)",
     "Year": 2026,
     "second_pref": true,
     "first_pref": "SBASSE"
@@ -744,5 +744,69 @@
     "School": "SAHSOL",
     "Year": 2026,
     "merit_scholarship": false
+  },
+  {
+    "SAT": 1380,
+    "O_Levels": 62,
+    "AS_Levels": null,
+    "School": "SAHSOL",
+    "Year": 2026,
+    "merit_scholarship": false
+  },
+  {
+    "SAT": 1230,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 94,
+    "Matric": 97,
+    "School": "MGHSS (Social Sciences)",
+    "Year": 2026,
+    "merit_scholarship": false
+  },
+  {
+    "SAT": 1280,
+    "O_Levels": 61,
+    "AS_Levels": 25,
+    "School": "MGHSS (Social Sciences)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "second_pref": true,
+    "first_pref": "SAHSOL"
+  },
+  {
+    "SAT": 1310,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 75,
+    "Matric": 94,
+    "School": "MGHSS (Social Sciences)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "second_pref": true,
+    "first_pref": "SBASSE"
+  },
+  {
+    "SAT": 1230,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 94,
+    "Matric": 97,
+    "School": "MGHSS (Social Sciences)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "second_pref": true,
+    "first_pref": "SDSB"
+  },
+  {
+    "SAT": 1360,
+    "O_Levels": null,
+    "AS_Levels": null,
+    "FSc": 81,
+    "Matric": 83,
+    "School": "MGHSS (Social Sciences)",
+    "Year": 2026,
+    "merit_scholarship": false,
+    "second_pref": true,
+    "first_pref": "SDSB"
   }
 ]
